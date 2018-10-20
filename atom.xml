@@ -1,0 +1,1402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[zhuangqh的博客]]></title>
+  <link href="zhuangqh.cn/atom.xml" rel="self"/>
+  <link href="zhuangqh.cn/"/>
+  <updated>2018-05-19T11:27:20+08:00</updated>
+  <id>zhuangqh.cn/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[深度学习入门]]></title>
+    <link href="zhuangqh.cn/15266964810231.html"/>
+    <updated>2018-05-19T10:21:21+08:00</updated>
+    <id>zhuangqh.cn/15266964810231.html</id>
+    <content type="html"><![CDATA[
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[机器学习road map]]></title>
+    <link href="zhuangqh.cn/ml-roadmap.html"/>
+    <updated>2017-10-15T18:30:20+08:00</updated>
+    <id>zhuangqh.cn/ml-roadmap.html</id>
+    <content type="html"><![CDATA[
+<h2 id="toc_0">基础算法</h2>
+
+<h3 id="toc_1">常用软件包</h3>
+
+<ul>
+<li>anaconda 一个包管理工具，自带科学计算工具全家桶</li>
+<li>numpy 科学计算包</li>
+<li>scikit-learn 机器学习工具包，大部分机器学习的算法都有实现</li>
+<li>XGBoost/LightGBM Gradient Boosting算法的工业级框架</li>
+</ul>
+
+<h3 id="toc_2">常见术语</h3>
+
+<ul>
+<li>Train Data 训练数据</li>
+<li>Test Data 测试数据</li>
+<li>Train Set 训练集</li>
+<li>Valid Set 验证集</li>
+<li>Cost Function 代价函数</li>
+<li>Learning Rate, Step, Epoch</li>
+<li>Early Stopping</li>
+<li>Overfitting, Underfitting 过拟合、欠拟合</li>
+<li>Regularization 正则化</li>
+<li>Ensemble learning(bagging, boosting) 集成学习</li>
+<li>Learning optimizer</li>
+</ul>
+
+<h3 id="toc_3">两个路线</h3>
+
+<h4 id="toc_4">学术上</h4>
+
+<p>学习以下基础算法</p>
+
+<ul>
+<li>线性回归</li>
+<li>逻辑回归</li>
+<li>决策树算法及衍生的GBDT算法和随机森林算法</li>
+<li>k-NN</li>
+<li>SVM</li>
+</ul>
+
+<p>书籍：《机器学习实战》《机器学习—周志华》《凸优化》，从前往后数学性越来越浓。<br/>
+公开课：Andrew ng《机器学习》教程</p>
+
+<h4 id="toc_5">工程上</h4>
+
+<h5 id="toc_6">提升算法运行效率</h5>
+
+<p><a href="http://blog.csdn.net/pakko/article/details/37878837/">逻辑回归向量化</a><br/>
+GDBT并行化<br/>
+随机森林并行化</p>
+
+<h5 id="toc_7">可视化</h5>
+
+<p>方面观察训练结果、参数的收敛情况等信息，一般框架会集成。</p>
+
+<h5 id="toc_8">参加Kaggle比赛</h5>
+
+<p>Kaggle是一个数据科学竞赛平台，企业或组织提供奖金来征集解决方案。Kaggle提供了一个介于“完美”与真实之间的过渡环境，问题的定义基本良好，非常适合用来实战练手。<br/>
+推荐经典的<a href="https://www.kaggle.com/c/digit-recognizer">手写数字识别问题</a>，适合初学者实战</p>
+
+<h2 id="toc_9">深度学习</h2>
+
+<h3 id="toc_10">常用工具</h3>
+
+<ul>
+<li>tensorflow, tensorboard</li>
+<li>caffe</li>
+</ul>
+
+<h3 id="toc_11">常见术语</h3>
+
+<ul>
+<li>Activation Function 激活函数 Relu, tanh, sigmoid</li>
+<li>Full Connected 全连接</li>
+<li>Backpropagation 反向传播</li>
+<li>正则化 L1, L2, Dropout</li>
+<li>学习率算法</li>
+<li>CNN卷积神经网络</li>
+<li>RNN循环神经网络</li>
+</ul>
+
+<h3 id="toc_12">学习资料</h3>
+
+<p><a href="http://www.deeplearningbook.org">《深度学习》</a></p>
+
+<p><a href="https://www.youtube.com/playlist?list=PLJV_el3uVTsPy9oCRY30oBPNLCo89yu49">台大李宏毅教授视频</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[基于C++可变参数模板格式化字符串]]></title>
+    <link href="zhuangqh.cn/cpp-custom-format.html"/>
+    <updated>2018-05-14T21:40:14+08:00</updated>
+    <id>zhuangqh.cn/cpp-custom-format.html</id>
+    <content type="html"><![CDATA[
+<p>遨游于C++世界时，最讨厌的当属于对c-style的兼容🙄。</p>
+
+<p>在格式化字符串时，通常使用的是<code>snprintf</code>这个c函数。<code>snprintf</code>是<code>sprintf</code>的安全版，能够避免缓冲区溢出。</p>
+
+<pre><code class="language-c++">char buf[1024] = {0};
+std::string s = &quot;Hello world&quot;;
+snprintf(buf, sizeof(buf), &quot;format str: %s&quot;, s.c_str());
+</code></pre>
+
+<p><code>snprintf</code>接受的参数跟<code>printf</code>差不多，都是c-style的数据类型，如<code>%s</code>接受的是<code>const char*</code>类型的数据，这就需要我们将<code>std::string</code>做一个转换。这一个小小的转换让我觉得非常不爽，有没有可能让<code>std::string</code>在做某个函数的参数时能自动做转换？甚至让一个将一个普通的对象自动转换成<code>const char*</code>类型？</p>
+
+<p>接下来我们将利用c++11的可变参数模板（variadic templates）、参数包（parameters pack）、完美转发（perfect forwarding）等特性来实现这一想法。</p>
+
+<h2 id="toc_0">参数列表完美转发</h2>
+
+<p>写C++代码时，我满脑子都是怎么最大限度地提高性能。我们这次的目标也一样，在提供方便的同时，不要对性能有太大影响，甚至不影响。</p>
+
+<p>首先是要将传入<code>fmt</code>函数的参数完美转发至<code>snprintf</code>。</p>
+
+<pre><code class="language-c++">template&lt;typename... Args&gt;
+string fmt(const char *format, Args&amp;&amp;... args) {
+  char buf[128] = {0};
+  snprintf(buf, sizeof(buf), format, convert(std::forward&lt;Args&gt;(args))...);
+  return buf;
+}
+</code></pre>
+
+<p>这是一个可变参数模板，args表示传入的参数们。我们的思路是将传入的参数做一个转换之后传给<code>snprintf</code>。</p>
+
+<p>为了原封不动的保持左右值引用，首先是用<code>Args&amp;&amp;</code>代替<code>Args</code>的参数类型，此处模板函数的Args需要编译器推导，所以是一个通用引用（Universal reference），可以指代左值或右值。用<code>std::forward&lt;Args&gt;</code>能保持参数的左右值性质，做到参数的完美转发。</p>
+
+<h2 id="toc_1">自动参数转换</h2>
+
+<p>在<code>convert</code>这个函数中，我们要将特定的类型转换成<code>const char*</code>类型，而那些能被<code>snprintf</code>接受的类型如<code>int</code>, <code>double</code>, <code>char*</code>，则原封不动的返回。</p>
+
+<p><code>convert</code>函数针对不同的参数类型需要返回不同的类型。这里也将返回值作为一个模板类型即可。</p>
+
+<pre><code class="language-c++">template&lt;typename T&gt;
+struct item_return {
+  using type = T&amp;&amp;;
+};
+</code></pre>
+
+<p><code>convert</code>函数的定义为：</p>
+
+<pre><code class="language-c++">template&lt;typename T&gt;
+inline typename item_return&lt;T&gt;::type convert(T&amp;&amp; arg) {
+  return static_cast&lt;T&amp;&amp;&gt;(arg);
+}
+</code></pre>
+
+<p>convert函数默认将传入的参数原封不动的返回。接下来我们要做模板的偏特化，对于指定的对象，将其转换为const char *类型</p>
+
+<pre><code class="language-c++">// lvalue
+template&lt;&gt;
+struct item_return&lt;obj&amp;&gt; {
+  using type = const char*;
+};
+
+template&lt;&gt;
+inline typename item_return&lt;obj&amp;&gt;::type convert&lt;obj&amp;&gt;(obj &amp;arg) {
+  std::cout &lt;&lt; &quot;receive lvalue\n&quot;;
+  return arg.s.c_str();
+}
+
+// rvalue
+template&lt;&gt;
+struct item_return&lt;obj&gt; {
+  using type = const char*;
+};
+
+template&lt;&gt;
+inline typename item_return&lt;obj&gt;::type convert&lt;obj&gt;(obj &amp;&amp;arg) {
+  std::cout &lt;&lt; &quot;receive rvalue\n&quot;;
+  return arg.s.c_str();
+}
+</code></pre>
+
+<p>注意，返回值也是需要偏特化的。</p>
+
+<h2 id="toc_2">最后</h2>
+
+<p>我构造了一个class，hook他的两个构造函数以便于观察是否发生了拷贝。</p>
+
+<pre><code class="language-c++">class obj {
+public:
+  string s;
+  obj(const char * ss) {
+    s = ss;
+  }
+  obj(const obj&amp; other):s(other.s) {
+    printf(&quot;copy constructor\n&quot;);
+  }
+  obj(obj&amp;&amp; other):s(other.s) {
+    printf(&quot;move constructor\n&quot;);
+    other.s.clear();
+  }
+};
+
+</code></pre>
+
+<p>之后我们使用fmt函数，就能像格式化c-style字符串一样，格式化任意一个对象啦。</p>
+
+<pre><code class="language-c++">int main() {
+  obj a(&quot;haha&quot;);
+  int b = 3;
+  std::cout &lt;&lt; fmt(&quot;%s %s\n%d %d&quot;, a, obj(&quot;xixi&quot;), b, 2) &lt;&lt; std::endl;
+  return 0;
+}
+</code></pre>
+
+<p>运行结果为</p>
+
+<pre><code class="language-bash">receive lvalue
+receive rvalue
+haha xixi
+3 2
+</code></pre>
+
+<p>很好，并没有发生拷贝。</p>
+
+<h2 id="toc_3">参考资料</h2>
+
+<ul>
+<li><a href="https://www.sczyh30.com/posts/C-C/cpp-move-semantic/">Modern C++ | 移动语义与完美转发 | Universal Reference</a></li>
+<li><a href="https://www.cnblogs.com/qicosmos/p/4325949.html">泛化之美--C++11可变模版参数的妙用</a></li>
+<li><a href="https://codinfox.github.io/dev/2014/06/03/move-semantic-perfect-forward/">移动语义（move semantic）和完美转发（perfect forward）</a></li>
+<li>《C++ Primer》</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[VIM——自定义语法高亮]]></title>
+    <link href="zhuangqh.cn/vim-custom-highlight.html"/>
+    <updated>2018-05-13T11:07:58+08:00</updated>
+    <id>zhuangqh.cn/vim-custom-highlight.html</id>
+    <content type="html"><![CDATA[
+<p>实习之后发现，一切代码活动都局限在一个终端界面了。由于一些安全原因和开发环境的方便，开发都是通过远程ssh到开发机上开发，自然也就只有终端界面了。VNC因为安全原因不让用，所以就别妄想使用Clion等IDE来开发了。在这样的背景下，人们大多使用VIM或者EMACS等编辑器来开发。</p>
+
+<p>在调试过程中，服务端日志是一个重要的参考依据。但是这类文本并不是某种编程语言，通常查阅的时候是没有语法高亮的，而且为了对<strong>grep命令友好</strong>，通常会将一条日志打在一行里，这就使得日志信息非常密集，分辩关键信息的时候非常不方便。于是我便有了这样一个想法，编写VIM插件，对日志中的关键信息如时间戳、代码行号、错误码进行语法高亮。</p>
+
+<p>为了叙述的方便，我们的目标是为下面这段日志进行高亮，将日志级别、时间戳、代码行号标识出来。</p>
+
+<pre><code>[ERROR][2017-10-01 08:08:08][example.go:231]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+[DEBUG][2017-10-01 08:08:10][example.go:233]Lorem ipsum dolor sit amet
+[INFO][2017-10-01 08:09:09][example.go:2333]Lorem ipsum dolor sit amet
+</code></pre>
+
+<h2 id="toc_0">语法高亮插件</h2>
+
+<p>语法高亮插件需要两个<code>.vim</code>文件。一个是语法检测文件（ftdetect），这是为了让VIM能够将指定语法应用于指定后缀的文件。一个是语法文件（syntax），这里定义了高亮的语法和着色方案。</p>
+
+<p>插件的目录结构如下：</p>
+
+<pre><code>/Users/zhuangqh/.vim
+├── ftdetect
+│   └── log.vim
+└── syntax
+    └── log.vim
+</code></pre>
+
+<p>这些文件在类UNIX系统上要放到<code>$HOME/.vim</code>目录下，Windows系统是<code>$HOME/vimfiles/</code>下。</p>
+
+<h3 id="toc_1">语法检测</h3>
+
+<p>当buffer读取或创建时，将<code>.log</code>后缀的文件类型设置为<code>log</code>，之后使用<code>log</code>类型的语法高亮方案进行着色。</p>
+
+<pre><code class="language-vim">&quot; ftdetect/log.vim
+au BufNewFile,BufRead *.log set filetype=log
+</code></pre>
+
+<h3 id="toc_2">语法高亮</h3>
+
+<p>这是文本的重点，该文件告诉VIM该怎么着色。</p>
+
+<h4 id="toc_3">关键字高亮</h4>
+
+<pre><code>syn keyword ${group} ${keyword}
+</code></pre>
+
+<p>大多数编程语言都有关键字。规则设置的时候，先给他一个组名，后面再接着一些关键字，之后再根据这个组名设置颜色。关键字高亮的匹配优先级是最高的，如果有其它高亮规则匹配上了也会按关键字的规则来高亮。</p>
+
+<p>这个规则对我们这次任务没什么用，因为我们只想高亮日志开头的那个特定的<code>ERROR</code>字样，存在上下文，实际上并不是关键字。</p>
+
+<h4 id="toc_4">匹配字高亮</h4>
+
+<pre><code>syn match ${name} ${pattern} 
+</code></pre>
+
+<p>这个命令提供了一种强大的匹配方法，用正则表达式来匹配。我们可以用来匹配我们的时间戳，如：<code>syn match logDate &#39;\d\{4}-\d\d-\d\d&#39;</code></p>
+
+<h4 id="toc_5">高亮嵌套</h4>
+
+<p>对某个匹配的字符串高亮之后，对子字符应用不同的规则。</p>
+
+<p>比如上述日志中的代码行号 <code>example2.go:233</code>，我们先整体匹配了这个模式，然后希望行号能有不一样的颜色。这可以理解成匹配的上下文，规则只在指定上下文中有效。</p>
+
+<pre><code>syn match logFile &#39;\w*\.go:\d*&#39; contains=logLineNum
+syn match logLineNum &#39;\d*&#39; contained
+</code></pre>
+
+<p><code>contains</code>告诉VIM这个token会包含其他哪些token。<code>contained</code>告诉VIM，只有在被其他token包含时，该规则才有效。</p>
+
+<h4 id="toc_6">匹配偏移</h4>
+
+<p>在高亮行号时，<code>\d*</code>规则会将所有的数字高亮，而事实上，只有冒号右边的数字才是行号，这就要用到匹配偏移的规则了。</p>
+
+<pre><code>syn match logLineNum &#39;:\d*&#39;ms=s+1 contained
+</code></pre>
+
+<p>匹配偏移用来调整实际匹配的值。<code>ms(me)</code>表示的是实际匹配的起始（终止）下标，<code>s(e)</code>表示的是原匹配字符的起始（终止）下标。我们用<code>:\d*</code>匹配后，将下标向右调整一位即可。</p>
+
+<p>记得偏移命令要紧跟模式项，否则会报错。</p>
+
+<h4 id="toc_7">区域高亮</h4>
+
+<pre><code>syn region ${name} start=${pattern} end=${pattern} skip=${pattern}
+</code></pre>
+
+<p>区域匹配最常见的是匹配一个字符串，用引号包裹的字符串，可以通过skip来跳过转义字符如<code>\&quot;</code>。</p>
+
+<p>在我们的日志高亮任务里，想匹配的是包含特定token的中括号，我们只高亮中括号，其他的交由其他规则来匹配。</p>
+
+<pre><code>syn region logBlock matchgroup=logParen start=/\[/ end=/\]/ fold
+</code></pre>
+
+<h4 id="toc_8">配色</h4>
+
+<pre><code>hi ${name} ctermfg=${color}
+</code></pre>
+
+<p>为前面定义的语法token设定着色样式，ctermfg是彩色终端的前景色，其他选项详见<a href="http://vimdoc.sourceforge.net/htmldoc/syntax.html#:highlight">:highlight</a></p>
+
+<h4 id="toc_9">结果</h4>
+
+<p>把所有规则集结起来如下：</p>
+
+<pre><code>if exists(&quot;b:current_syntax&quot;)
+  finish
+endif
+
+syn match logLevelError &#39;ERROR&#39; contained
+syn match logLevelDebug &#39;DEBUG&#39; contained
+syn match logLevelInfo &#39;INFO&#39; contained
+
+syn match logFile &#39;\w*\.go:\d*&#39; contains=logLineNum
+syn match logLineNum &#39;:\d*&#39;ms=s+1 contained
+
+syn match logDate &#39;\d\{4}-\d\d-\d\d&#39; contained
+syn match logTime &#39;\d\d:\d\d:\d\d&#39; contained
+syn region logBlock matchgroup=logParen start=/\[/ end=/\]/ fold
+ \ contains=logLevelError,logLevelDebug,logLevelInfo,logFile,logDate,logTime
+
+hi logLevelError ctermfg=red
+hi logLevelDebug ctermfg=yellow
+hi logLevelInfo ctermfg=green
+hi logFile ctermfg=yellow
+hi logLineNum ctermfg=blue
+hi logDate ctermfg=yellow
+hi logTime ctermfg=blue
+hi logBlock ctermfg=white
+hi logParen ctermfg=grey
+
+let b:current_syntax = &quot;log&quot;
+</code></pre>
+
+<h2 id="toc_10">参考资料</h2>
+
+<ul>
+<li><a href="http://vim.wikia.com/wiki/Creating_your_own_syntax_files">Creating your own syntax files</a></li>
+<li><a href="http://wiki.zhouyichu.com/Vim/2012/12/03/Vim-Develop-Syntax.html">Vim自定义语法高亮</a></li>
+<li><a href="http://vimdoc.sourceforge.net/htmldoc/syntax.html#:highlight">:highlight</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[逻辑回归并行化]]></title>
+    <link href="zhuangqh.cn/parallel-lr.html"/>
+    <updated>2018-05-18T00:00:26+08:00</updated>
+    <id>zhuangqh.cn/parallel-lr.html</id>
+    <content type="html"><![CDATA[
+<p>Github地址为<a href="https://github.com/zhuangqh/LR-x">https://github.com/zhuangqh/LR-x</a></p>
+
+<h2 id="toc_0">数学原理</h2>
+
+<p>逻辑回归与线性回归非常类似，区别就是预测函数不同。预测函数表示预测结果取1的概率。</p>
+
+<p>\[h_\theta=g(\theta^Tx)=\frac{1}{1+e^{-\theta^Tx}}\]</p>
+
+<p>定义损失函数</p>
+
+<p>\[Cost(h_\theta(x),y)=\]</p>
+
+<p>对损失函数做最大似然估计，然后取对数并乘与 -1/m 得到</p>
+
+<p>\[J(\theta)=\frac{1}{m} \sum^n_{i=1}Cost(h_\theta(x_i), y_i)=-\frac{1}{m}[\sum^n_{i=1}y_i\log h_\theta(x_i)+(1-y_i)\log(1-h_\theta(x_i))]\]</p>
+
+<p>通过梯度下降的方法来得到\(J(\theta)\)的最小值。</p>
+
+<p>对\(J(\theta)\)求导数得到：</p>
+
+<p>\[\frac{\partial J(\theta)}{\partial \theta_j} =-\frac{1}{m}\sum^n_{i=1}(y_i\frac{1}{h_\theta(x_i)}\frac{\partial h_\theta(x_i)}{\partial \theta_j}-(1-y_i)\frac{1}{1-h_\theta(x_i)} \frac{\partial h_\theta(x_i)}{\partial \theta_j})\\<br/>
+ = -\frac{1}{m}\sum^m_{i=1}(y_i\frac{1}{g(\theta^Tx_i)}-(1-y_i)\frac{1}{1-g(\theta^Tx_i)})\frac{\partial g(\theta^Tx_i)}{\partial \theta_j} \\<br/>
+ = -\frac{1}{m}\sum^m_{i=1}(y_i\frac{1}{g(\theta^Tx_i)}-(1-y_i)\frac{1}{1-g(\theta^Tx_i)})g(\theta^Tx_i)(1-g(\theta^Tx_i))\frac{\partial \theta^Tx_i}{\partial \theta_j} \\<br/>
+ = -\frac{1}{m}\sum^m_{i=1}(y_i(1-g(\theta^Tx_i))-(1-y_i)g(\theta^Tx_i))x_i^j\\<br/>
+ = -\frac{1}{m}\sum^m_{i=1}(y_i-g(\theta^Tx_i))x_i^j\\<br/>
+ = \frac{1}{m}\sum^m_{i=1}(h_\theta(x_i)-y_i)x_i^j\]</p>
+
+<p>那么参数更新的过程为<br/>
+\[\theta_j := \theta_j - \alpha \frac{1}{m}\sum^m_{i=1}(h_\theta(x_i)-y_i)x^j_i\]</p>
+
+<p>加入正则化项，防止过拟合</p>
+
+<p>\[\theta_j := \theta_j - \frac{\alpha}{m}\sum^m_{i=1}(h_\theta(x_i)-y_i)x^j_i-\frac{\lambda}{m}\theta_j\]</p>
+
+<p>下面着手用代码实现</p>
+
+<h2 id="toc_1">代码实现</h2>
+
+<p>实现的时候，我使用的是文档比较友好的eigen来辅助矩阵计算。使用OpenMP做并行化。</p>
+
+<p>各个版本的实现非常相似，区别在于计算梯度的部分。伪代码如下</p>
+
+<pre><code>initial theta
+for each iteration do
+    gw &lt;- get_gradient_from_train_data()
+    theta &lt;- theta - alpha * gw
+    if convergence
+        then break
+end
+</code></pre>
+
+<p>以下假设theta个数为n, 训练集数目为m</p>
+
+<h3 id="toc_2">简单版本</h3>
+
+<p>第一个版本是直接计算。对于训练集的每一行，计算 与的内积，然后减去，再乘与，得到常数coeff。常数coeff与相乘便得到这一个训练样本的梯度向量。将所有m个向量相加便得到最终的梯度。</p>
+
+<pre><code class="language-c++">VectorXd gw;
+gw.setZero(n);
+for (size_t i = 0; i &lt; m; i++) {
+    double coeff = train.first.row(i) * theta;
+    // h(xi) = 1/m * (g(xi * theta) - yi)
+    coeff = 1.0 / m * (g(coeff) - train.second(i));
+    // gwi = h(xi) * xi
+    VectorXd gwi = coeff * train.first.row(i);
+    
+    gw += gwi;
+}
+</code></pre>
+
+<h3 id="toc_3">向量化</h3>
+
+<p>观察式(1)，发现可以转化为矩阵乘法。也即向量化。</p>
+
+<p>\[记 \mathbf{E} = g(x \cdot \theta) - y\]</p>
+
+<p>\(\theta_j\)化为：\(\theta_j := \theta_j - \alpha \cdot (x_j^{(1)}, x_j^{(2)},...,x_j^{(m)}) \cdot \mathbf{E}\)<br/>
+ <br/>
+那么综合起来就是：</p>
+
+<p>\[\theta := \theta - \alpha \cdot x^T \cdot \mathbf{E}\]</p>
+
+<p>用代码实现起来并不难。eigen帮我们实现快速的矩阵乘法。<br/>
+c++代码做了重载，使得代码就像数学表达式一样直白。</p>
+
+<pre><code class="language-c++">// A = x * theta
+VectorXd inner = train.first * theta;
+// E = g(A)
+VectorXd ga = inner.unaryExpr(std::ptr_fun(g));
+// gw = 1/m * xT * (E - y)
+VectorXd gw = 1.0 / this-&gt;m * (train.first.transpose() * (ga - train.second));
+</code></pre>
+
+<h3 id="toc_4">并行化</h3>
+
+<p>我的并行化是在简单版本的基础上进行改进的。可以看到，在对每一行计算梯度的时候，行与行之间是相互独立的。然后再将所有这些梯度相加。这天然就是一个可以被并行优化的问题。</p>
+
+<p>我使用的是OpenMP，只要在需要并行话的地方写上对应的宏，编译器就会帮我们做并行化。<br/>
+在做并行化的时候，会有这样一个问题。在简单版中，用于迭代计算梯度的 i 在并行化会被处理器竞争。导致结果跟我们预想的不符。</p>
+
+<p>我们用openmp的函数获取处理器的数量，为每个处理器分配一个迭代器，独立使用。</p>
+
+<pre><code class="language-c++">int coreNum = omp_get_num_procs();
+
+// temp sum in each processor
+std::vector&lt;VectorXd&gt; sumInCore(coreNum);
+
+// iterator in each processor
+std::vector&lt;size_t&gt; iters(coreNum);
+</code></pre>
+
+<p>并且分配空间用于存放各个处理计算得到的梯度和。各个处理独立使用的迭代器和临时和变量，这样在并行化中便不存在竞争。</p>
+
+<p>然后将训练样本均匀分配给每个处理器。在一个处理器中，计算这些训练样本的梯度和。在并行化结束后，将各个处理器的梯度和相加得到总的梯度。</p>
+
+<h2 id="toc_5">结果验证与性能比较</h2>
+
+<p>并行化了之后不能简单使用CPU clock来衡量运算的快慢。因为并行版本会使用多个核。<br/>
+我使用OpenMP提供的omp_get_wtime函数，他会返回从任意一个一致点所经过的时间。我用这个来衡量各版本的计算速度。</p>
+
+<pre><code class="language-c++">void timer_wrapper(std::function&lt;void()&gt; func) {
+  double startTime = omp_get_wtime();
+  func();
+  double stopTime = omp_get_wtime();
+
+  std::cout &lt;&lt; stopTime - startTime &lt;&lt; std::endl;
+}
+</code></pre>
+
+<p>使用这样函数timer来计算一个函数的运行时间。timer接受一个类型为function<void()>的函数对象，然后打印这个函数的运行时间。</p>
+
+<h3 id="toc_6">性能对比</h3>
+
+<p>测试数据是我从网上找的一个垃圾邮件的数据。样本数2760，feature数量57。我们迭代1000次来看运行时间的差别。<br/>
+并行版比简单版快了4倍多。向量化版是最快的，这可能与eigen的实现有关，因为向量化的乘法完全使用eigen的函数。<br/>
+<img src="media/15265728262630/15266617103275.jpg" alt=""/></p>
+
+<p>预测结果 naive.txt, vectorize.txt, parallel.txt 三者的结果一模一样。这说明算法是正确的。</p>
+
+<h2 id="toc_7">参考资料</h2>
+
+<ul>
+<li><a href="http://blog.csdn.net/dongtingzhizi/article/details/15962797">http://blog.csdn.net/dongtingzhizi/article/details/15962797</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[动手用c写一个HTTP服务器]]></title>
+    <link href="zhuangqh.cn/write-a-http-server.html"/>
+    <updated>2017-02-25T20:34:27+08:00</updated>
+    <id>zhuangqh.cn/write-a-http-server.html</id>
+    <content type="html"><![CDATA[
+<p>源码地址<a href="https://github.com/zhuangqh/anywhere">https://github.com/zhuangqh/anywhere</a></p>
+
+<p>看到像<a href="https://github.com/EZLippi/Tinyhttpd">这个给tinyhttpd写README的仓库</a>都有1k star的时候，我真的好气🙄，所以我也写一个用c写HTTP静态文件服务器的教程，而且性能更好。</p>
+
+<p>c socket编程面向的是传输层。我们在这一层上来收发HTTP报文。</p>
+
+<p>HTTP请求报文格式如下：<br/>
+<img src="media/14880260679698/Snip20170225_36.png" alt="Snip20170225_36"/></p>
+
+<p>由于我们是静态文件服务器，所以有效的请求报文是 GET url 的格式。我们只要解析这个url，然后发送对应的文件就OK了。这个是基本的思路。</p>
+
+<h2 id="toc_0">函数包装</h2>
+
+<p>我仿照UNP中对函数进行包装的方式。对基础函数进行包装，在代码中只使用包装过的函数。<br/>
+UNIX函数大多会将函数的调用状态作为返回值。如Socket函数，如果返回值小于零，则是调用出错，这种情况我们直接结束进程并报错。</p>
+
+<pre><code class="language-c">int
+Socket(int family, int type, int protocol)
+{
+    int     n;
+
+    if ( (n = socket(family, type, protocol)) &lt; 0)
+        err_sys(&quot;socket error&quot;);
+    return(n);
+}
+</code></pre>
+
+<h2 id="toc_1">监听并处理请求</h2>
+
+<p><img src="media/14880260679698/Snip20170225_37.png" alt="Snip20170225_37"/></p>
+
+<p>服务器启动并监听的流程是这样的：首先调用socket()创建一个服务端的套接字，然后使用bind()将套接字绑定在一个指定的端口上。调用listen()将套接字从CLOSED状态转换到LISTEN状态。而accept会返回已连接队列的对头。我们对accept返回的描述符的读写就是对客户端的收发操作。</p>
+
+<p>这篇教程选用的并发模型是线程池，每个线程分别accept的形式。</p>
+
+<p>ReqHandler这个struct存放的是对客户端描述符的处理函数和在pthread_t数组的下标。下标用于后面的pthread_create</p>
+
+<p>主进程在创建完线程后任务就完成了，所以它一直阻塞等待就好。</p>
+
+<pre><code class="language-c">tptr = Calloc(THREAD_NUM, sizeof(pthread_t));
+
+// tptr是一个pthread_t的数组。在启动的时候可给出线程池线程的数量，不指明则使用默认值8。
+ReqHandler rh;
+rh.handler = accept_request;
+for (int i = 0; i &lt; nthreads; i++) {
+rh.index = i;
+thread_make(rh);
+}
+
+for ( ; ; )
+pause();    // everything done by threads
+</code></pre>
+
+<p>在线程创建时，将ReqHandler里的请求处理函数传递给它</p>
+
+<pre><code class="language-c">Pthread_create(&amp;tptr[rh.index], NULL, &amp;thread_main, (void *) (rh.handler));
+</code></pre>
+
+<p>在各个线程中分别accept，这个有个问题，他们不应该同时accept。所以我们在进入accept这个函数前加上互斥锁。</p>
+
+<pre><code class="language-c">Pthread_mutex_lock(&amp;mmlock);
+connfd = Accept(listenfd, cliaddr, &amp;clilen);
+Pthread_mutex_unlock(&amp;mmlock);
+</code></pre>
+
+<h2 id="toc_2">处理请求</h2>
+
+<p>在服务器搭起来之后，我们就可以干正事了。<code>accept_request</code>这个函数解析出HTTP的请求方法和URL并作出响应。</p>
+
+<p>我们知道HTTP的每一行是以<code>/r/n</code>结束，那么getline该怎么做呢？一个字符一个字符地读，并逐一判断是否为<code>/r/n</code>序列的方法显然比较慢。所以我们做一个自己的缓冲区。预先在客户端描述符connfd读入多个字符。再在缓冲区里一个字符一个字符地判断。缓冲区读完后，再读一次connfd。这样能大大减少读取connfd的次数。</p>
+
+<h3 id="toc_3">请求方法错误处理</h3>
+
+<p>获取到HTTP的请求方法后，如果方法不是GET，我们直接返回501错误。说明这个方法我们还没有实现。</p>
+
+<p>可能有人会对下面这种写法感到疑惑。其实编译器在做预处理的时候会把连着的字符串合并的。所以下面这种写法跟写在一对双引号里是一样的。</p>
+
+<pre><code class="language-c">void
+unimplemented(int sockfd)
+{
+  char msg[] =
+  &quot;HTTP/1.1 501 Method Not Implemented\r\n&quot;
+  SERVER_STRING
+  &quot;Content-Type: text/plain\r\n&quot;
+  &quot;\r\n&quot;
+  &quot;method not implemented\r\n&quot;;
+
+  Write(sockfd, msg, strlen(msg));
+}
+</code></pre>
+
+<h3 id="toc_4">请求文件不存在处理</h3>
+
+<p>然后判断URL的文件是否存在。这里我们多做了一步处理，如果URL是以<code>/</code>结尾的，浏览器会自动给它加上<code>index.html</code>，所以我们也按照这个来。</p>
+
+<p>我们用open的形式打开文件，而不是标准IO的fopen。open能拿到该文件的描述符。这在我们下一步传输文件时比较方便。如果文件不存在，直接返回404。</p>
+
+<pre><code class="language-c">void
+serve_file(int sockfd, const char *filepath)
+{
+  int filefd = open(filepath, O_RDONLY); // open file for read
+
+  if (filefd == -1) {
+    not_found(sockfd);
+  } else {
+    set_header(sockfd, filepath);
+    send_file(sockfd, filefd);
+    Close(filefd);
+  }
+}
+</code></pre>
+
+<h3 id="toc_5">传输文件</h3>
+
+<p>向客户端发送文件，还得设置好响应报文中Content-Type的值，告诉对方这是一个什么文件。这里我们需要一张表，根据文件的后缀名查询Content-Type。自然是使用Hash表，冲突用链表的形式解决。具体请看源码。</p>
+
+<p>传输文件时，就是一对read write，UNIX一切皆文件的优雅就此体现。</p>
+
+<pre><code class="language-c">void
+send_file(int sockfd, int filefd)
+{
+  char buf[MAXLINE];
+  int cnt = 0;
+
+  while ((cnt = read(filefd, buf, MAXLINE)) &gt; 0) {
+    Write(sockfd, buf, cnt);
+  }
+}
+</code></pre>
+
+<p><strong>具体代码请查看文章开头的github地址，我把要点和整体思路讲完，剩下就是看代码了🙃</strong></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[DISPLAY not defined 问题解决]]></title>
+    <link href="zhuangqh.cn/14879935938295.html"/>
+    <updated>2017-02-25T11:33:13+08:00</updated>
+    <id>zhuangqh.cn/14879935938295.html</id>
+    <content type="html"><![CDATA[
+<p>实验室的老师合买了一个叫cadence的软件，打算放在集群上，这样几个实验室都能一起用。负责这事的师兄不是读软件的，咨询了我好几次，好不容易才把软件装好。装的时候是直接装在登录节点的，而我觉得这样不太好，应该得装在计算节点上，然后就改license，装到了一个计算节点cu02上。</p>
+
+<p>好了，迁移后，就遇到了这样的一个问题<br/>
+<img src="media/14879935938295/mmexport1487994188970.jpg" alt="mmexport1487994188970"/></p>
+
+<h2 id="toc_0">确认ssh开启XDisplay</h2>
+
+<p>在服务器上修改ssh配置, 文件路径 /etc/ssh/sshd_config</p>
+
+<pre><code class="language-bash">AllowTcpForwarding yes
+X11Forwarding yes
+X11UseLocalhost yes
+</code></pre>
+
+<p>客户端则是连接到服务器时加上 -X参数, 即<code>ssh -X username@host</code></p>
+
+<p>mac用户需要下载一个 xQuartz，自带的X11是没用的</p>
+
+<h2 id="toc_1">确认开启Xserver</h2>
+
+<p>配置好ssh之后，发现cu02依旧无法正常显示Xwindow，也就是图形界面。而原先的登录节点是可以显示图形界面的。我就奇了怪了，翻了百度、Google前十页。大多答案都是这样的：说ssh要配置好，然后试试<code>export DISPLAY= 一个玄学参数</code>。我就试了很多种玄学参数，依旧不行。<a href="http://www.icr.ece.ufl.edu/teaching/EEL5322-F08/EEL5322_Guide/Files/remote_access.pdf">这篇教程</a>还讲了这个参数是怎么来的....虽然跟我的问题一模一样，软件也一样，但并没有什么用..</p>
+
+<p>于是我就去翻《鸟哥的linux私房菜——服务器架设篇》。了解到开启图形画面传送得先有个Xserver。SO上所有的回答都没有提到这点！😂这是大前提！没开Xserver什么配置都是扯淡</p>
+
+<p>通过<code>xinit</code>命令开启Xserver，可以使用<code>xclock</code>做测试，如果成功的话，会出现一个GUI的时钟。</p>
+
+<p>在像集群这样的多计算机的情况，一路ssh过去都必须加上 -X 参数，才能正常使用XDisplay</p>
+
+<h2 id="toc_2">后记</h2>
+
+<p>《鸟哥》两本书都是好书，希望每个至少看看第一本 : )</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[数字图像处理要点]]></title>
+    <link href="zhuangqh.cn/DIP-summary.html"/>
+    <updated>2016-12-14T23:43:12+08:00</updated>
+    <id>zhuangqh.cn/DIP-summary.html</id>
+    <content type="html"><![CDATA[
+<h2 id="toc_0">chapter2</h2>
+
+<h3 id="toc_1">图像取样和量化 Image Sampling and Quantization</h3>
+
+<p>大多数传感器的输出是连续的电压波形(图像)，为了产生一 幅数字图像，需要把连续的感知数据转换为数字形式。这就包含 了两种数字化处理，取样(时空域)(坐标值数字化)和量化(光色强度等)(幅值数字化)</p>
+
+<p><strong>双线性插值 upsampling--bilinear interpolation</strong></p>
+
+<p><strong>人眼对灰度分辨率的敏感程度和图像内容的复杂程度相关</strong></p>
+
+<h3 id="toc_2">像素间的关系spatial relationships between pixels</h3>
+
+<p>4-neighbors: (x-1, y) , (x+1, y), (x, y-1), (x, y+1)<br/>
+diagonal neighbors: (x-1, y-1) , (x+1, y-1), (x-1, y+1), (x+1, y+1)<br/>
+8-neighbors = diagonal-neighbors + 4-neighbors</p>
+
+<p>邻接性<br/>
+(a)4邻接:如果点q在N4(P)中，数值在V中，则q和p是4邻接的;<br/>
+(b)8邻接:如果点q在N8(P)中，数值在V中，则q和p是8邻接的;<br/>
+(c)m邻接(混合邻接):满足下列条件的任一个，则具有V中数值 的p和q是m连接的。<br/>
+(i)q在中N4(P) (ii)q在ND(P)中，且集合N4(P)∩N4(Q)中没有V值的像素</p>
+
+<h3 id="toc_3">Mathematical Tools Used in DIP</h3>
+
+<p><strong>Linear operator</strong><br/>
+H(af+bg) = aH(f) + bH(g)</p>
+
+<p><strong>Bit plane</strong></p>
+
+<p><strong>Spatial Operation</strong></p>
+
+<ol>
+<li>Single-pixel operations</li>
+<li>Neighborhoodoperations</li>
+</ol>
+
+<h2 id="toc_4">chapter3 Spatial filtering</h2>
+
+<h3 id="toc_5">Grey Level Transformation</h3>
+
+<p><strong>negative image</strong><br/>
+s = (L-1) - r</p>
+
+<p><strong>Log transform</strong><br/>
+s = clog(1+r)</p>
+
+<p><strong>Gamma transform</strong><br/>
+s = cr<sup>y</sup></p>
+
+<p><strong>Piece-wise linear transform(分段线性变换)</strong></p>
+
+<p><strong>Bit plane slice</strong><br/>
+去除低位 bit plane 相当于去噪</p>
+
+<p>以上灰值处理方法均可用于图像增强，提升亮暗部效果</p>
+
+<h3 id="toc_6">Histogram Processing</h3>
+
+<p>直方图均衡化”方法试图使处理后输出图 像的信息熵尽可能大</p>
+
+<p>问题 灰度跳跃</p>
+
+<h3 id="toc_7">Spatial filtering</h3>
+
+<ol>
+<li>Spatial correlation</li>
+<li>Spatial convolution (旋转180后的correlation)</li>
+</ol>
+
+<p><strong>Smoothing Spatial Filter</strong></p>
+
+<ol>
+<li>Averaging filter</li>
+<li>Median filter
+
+<ul>
+<li>preserve edge</li>
+<li>remove impluse noise</li>
+<li>create flats</li>
+</ul></li>
+</ol>
+
+<p><strong>Sharpening Spatial Filter</strong></p>
+
+<ul>
+<li>一阶微分产生较“宽”的边界，二阶微分产生较“细”的 边界;</li>
+<li>二阶微分处理对细节有较强的响应，如细线和孤立点;</li>
+<li>一阶微分对阶梯状的灰度变化有较强的响应;</li>
+<li>二阶微分在处理阶梯状灰度变化时产生双响应</li>
+<li>如果灰度的变化相似，二阶微分对线的反应比对阶梯强， 对点的反应比对线强。</li>
+</ul>
+
+<p>Laplacian filter</p>
+
+<p>High-boost Filter:<br/>
+1. Blur the original image<br/>
+2. Subtract the blurred image from the original (the resulting<br/>
+difference is called mask<br/>
+\[ g_{mask}(x,y) = f(x,y) - \overline{f}(x,y) \]<br/>
+3. Add the mask to the original<br/>
+\[ g(x,y) = f(x,y) + kg_{mask}(x,y)\]</p>
+
+<p>k &gt; 1: high-boost filter</p>
+
+<h2 id="toc_8">chapter4 Image Enhancement in the quency Domain</h2>
+
+<h2 id="toc_9">chapter5 Image Restoration</h2>
+
+<p><strong>图像复原</strong>: 利用退化现象和噪声干扰的某些先验知识来重建或恢复 被干扰和退化的图像, 尽可能的恢复图像的原貌</p>
+
+<p><strong>Model of degraded image</strong><br/>
+\[g(x, y) = h(x, y) * f(x, y) + \eta(x, y)\]</p>
+
+<p>\(f(x, y)\)-“Original”Image<br/>
+\(h(x, y)\)-Degradation Function <br/>
+\(\eta(x, y)\)-Additive Noise<br/>
+\(g(x, y)\)-Degraded Image</p>
+
+<h3 id="toc_10">Noise Model</h3>
+
+<ol>
+<li>Gaussian noise \(p(z) = \frac{1}{\sqrt{2\pi}\sigma}e^{-(z-\mu)^2/2\sigma^2}\)</li>
+<li>Rayleigh noise</li>
+<li>Gamma noise</li>
+<li>Exponential Noise</li>
+<li>Uniform Noise</li>
+<li>Impluse Noise (salt and pepper)</li>
+<li>Periodic Noise</li>
+</ol>
+
+<p><img src="media/14817301928532/14817730215876.jpg" alt="" style="width:503px;"/></p>
+
+<p><strong>噪声模型估计</strong><br/>
+截取一小部分具有恒定灰度的区域，估计PDF，与模型比对</p>
+
+<h3 id="toc_11">Restoration</h3>
+
+<ol>
+<li>Arithmetic Mean Filter: 高斯噪声，均匀噪声</li>
+<li>Geometric Mean Filter: 高斯噪声，均匀噪声</li>
+<li>Harmonic mean filter: 高斯噪声，盐噪声</li>
+<li>Contra-harmonic mean filter
+
+<ul>
+<li>Q &gt; 0: 椒噪声</li>
+<li>Q &lt; 0: 盐噪声</li>
+<li>Q = 0: arithmetic mean filter</li>
+<li>Q = -1: harmonic mean filter</li>
+</ul></li>
+<li>Order-statistic filters
+
+<ol>
+<li>Median filter: 脉冲噪声</li>
+<li>Max Filter: 椒噪声</li>
+<li>Min filter: 盐噪声</li>
+<li>Midpoint filter: 椒盐噪声、高斯噪声、均匀噪声</li>
+</ol></li>
+<li>Alpha-trimmed mean (ATM) filter: 高斯和椒盐噪声
+&gt; 去掉最高，最低，中间取平均值</li>
+<li>Adaptive Filters</li>
+<li>band-reject</li>
+</ol>
+
+<h2 id="toc_12">chapter6 Color Image Processing</h2>
+
+<p><strong>RGB彩色模型 vs HSI彩色模型</strong></p>
+
+<p>这个模型是以彩色的色调(Hue)、饱和度 (Saturation)以及强度(Intensity)为基础的。这个模型更适合人 对颜色的解释</p>
+
+<h3 id="toc_13">RGB to HSI</h3>
+
+<p>\[ B \le G,H = \theta, B &gt; G, H = 360 - \theta\]<br/>
+\[ \theta = arccos{\frac{\frac{1}{2}[(R-G)+(R-B)]}{[(R-G)^2+(R-B)(G-B)]^{1/2}}}\]<br/>
+\[ S = 1 - \frac{3}{R+G+B}[min(R,G,B)]\]<br/>
+\[ I = \frac{1}{3}(R+G+B)\]</p>
+
+<h3 id="toc_14">HSI to RGB</h3>
+
+<h2 id="toc_15">图像压缩</h2>
+
+<p>信息熵 \(H(x) = - \sum_{a\in A} p(a)log_2p(a)\)</p>
+
+<h2 id="toc_16">形态学</h2>
+
+<p>获取边缘 \(A-(A\ominus B)\)</p>
+
+<p>opening \(A \circ B = （A \ominus B) \oplus B\) 外轮廓磨得较圆滑, 把细线切断</p>
+
+<p>closing \(A \cdot B = (A \oplus B) \ominus B\) 內凹的角填起成圆弧</p>
+
+<h3 id="toc_17">指纹图去噪</h3>
+
+<p>\((A \circ B) \cdot B\)</p>
+
+<h2 id="toc_18">image and video compression basic</h2>
+
+<p>YUV 格式, 2.03U=B-Y, 1.14V=R-Y</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Overview of the New C++笔记]]></title>
+    <link href="zhuangqh.cn/14879909519389.html"/>
+    <updated>2017-02-25T10:49:11+08:00</updated>
+    <id>zhuangqh.cn/14879909519389.html</id>
+    <content type="html"><![CDATA[
+<p>C++Primer里有印象的就不赘述了</p>
+
+<h2 id="toc_0">Uniform Initialization</h2>
+
+<p><strong>Brace Initialization (avaliable everywhere)</strong></p>
+
+<ol>
+<li>Aggregates initialized top-to-bottom/front-to-back. </li>
+<li>Non-aggregates initialized via constructor.</li>
+</ol>
+
+<pre><code class="language-cpp">int a[] = {1,2,3,4};
+struct Point {int x, y;};
+const Point p {10, 20};
+const Point p = {10, 20};
+std::vector&lt;int&gt; v {1,2,3};
+</code></pre>
+
+<p><strong>implicit narrowing not allowed in c++11</strong></p>
+
+<pre><code class="language-cpp">struct Point {int x, y};
+Point p1 {1, 2.5};  // error in c++11
+Point p1 {1, static_cast&lt;int&gt;(2.5)}; // OK
+struct A {double x};
+A a {1}; // OK
+</code></pre>
+
+<p><strong>std::initializer_list parameters allow “initialization” lists to be passed to functions.</strong></p>
+
+<pre><code class="language-cpp">class A {
+    public:
+    A(std::initializer_list&lt;int&gt; ids) {}
+};
+
+A a {1, 2, 3, 4};
+</code></pre>
+
+<h2 id="toc_1">Concurrency Support</h2>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Web后端 从玩具到生产环境]]></title>
+    <link href="zhuangqh.cn/14880215803154.html"/>
+    <updated>2017-02-25T19:19:40+08:00</updated>
+    <id>zhuangqh.cn/14880215803154.html</id>
+    <content type="html"><![CDATA[
+<p>大学课程里大作业，在我看来，与其说是Project，不如说是玩具。不管性能，不考虑安全性，不考虑日后如何维护，只要实现相应功能就OK了。比如说大二上的Web课，我后端对上述的事项基本无考虑，最后还是拿了很好的名次... 这里我想从安全和运维的角度谈谈从一个玩具到生产环境的项目要做哪些事情。</p>
+
+<h2 id="toc_0">安全</h2>
+
+<p>后端是跟数据打交道的，我们必须保证最后到达数据库的数据是完整的，安全的。</p>
+
+<h3 id="toc_1">密码存储</h3>
+
+<p>密码存储大概是许多人遇到的第一个安全问题了。明文存储密码显然是不可取的。比如CSDN的密码泄露事件，简直被老师黑出翔，每讲到这个问题都会被拉出来枪毙一次。</p>
+
+<h4 id="toc_2">普通方案</h4>
+
+<p>最简单的方法就是对密码做一次单向哈希。常见的单项哈希算法有SHA-256, SHA-1, MD5等。但随着技术的进步，攻击者可以将所有密码的常见组合进行单向哈希，得到一个摘要组合，与数据库中的摘要进行比对即可获得对应的密码。这个摘要组合被称为rainbow table（彩虹表）。所以这个方案也不太安全。</p>
+
+<h4 id="toc_3">进阶方案</h4>
+
+<p>一种更好地方法是加“盐”(salt)。现对原文做一次单向哈希，将得到的哈希值加上一串只有管理员知道的随机串，再做一次单向哈希。这样就大大增加了破解的难度。避免了密码过短、过于常见而被彩虹表破解。</p>
+
+<h3 id="toc_4">数据存储</h3>
+
+<p>在往数据库里新增或者修改数据时，需要做一些验证，不能一股脑的丢进数据库。尤其是像mongoDB这样的面向文档的数据库，往里放的数据，属性多了，类型不对，也不会报错，这非常可怕。所以在数据库操作前的一步得把好关。</p>
+
+<h3 id="toc_5">日志</h3>
+
+<p>这大概是初学者最初的项目最容易忽略的一点。许多人调试时在终端上log几个数据找出bug后就完事了。</p>
+
+<p>在项目正式上线后，出现问题，日志是我们非常重要的依据。像删除这样的敏感操作得对关键信息做好日志。而access log可以套上一层nginx，让nginx帮我们做。</p>
+
+<p>好的日志应该根据重要程度，分为多级。许多日志库都有这样的设定，如分成debug, info, warning, error这样几级。在开发阶段的log信息丰富些，上线后只做error等重要信息的log</p>
+
+<h2 id="toc_6">运维</h2>
+
+<p>运维做的是项目上线后的长期维护。</p>
+
+<h3 id="toc_7">配置文件化</h3>
+
+<p>在部署时，比如数据库的启动信息，是可以手动作为命令行参数输入的。在学习阶段当然可以这么做，简单便利。而在生产环境应当将配置信息写到文件中，手动输入参数麻烦，而且容易遗漏，输错。</p>
+
+<p>最好是用Makefile这样的工具，make一下完成部署，方便且不易错。</p>
+
+<h3 id="toc_8">监控</h3>
+
+<p>上线后用pm2或者类似的工具对服务器状态进行监控CPU使用率、内存使用率等数据。及时发现问题。</p>
+
+<h3 id="toc_9">备份</h3>
+
+<p>一个合格的运维人员应当定期对数据做容灾备份。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[通过集群联网]]></title>
+    <link href="zhuangqh.cn/14828948897759.html"/>
+    <updated>2016-12-28T11:14:49+08:00</updated>
+    <id>zhuangqh.cn/14828948897759.html</id>
+    <content type="html"><![CDATA[
+<p>这个是前阵子弄得了，实验室老师抱怨连Wi-Fi网速实在太慢了，想走集群的带宽上网。<br/>
+配置好后，连网线上网能达到1MB/s，喜大普奔: )</p>
+
+<h2 id="toc_0">搭建DHCP服务器</h2>
+
+<p>DHCP为用户动态分配IP</p>
+
+<p>查看是否已安装dhcp</p>
+
+<pre><code class="language-bash">which dhcpd
+</code></pre>
+
+<p>如果没有安装，安装dhcp</p>
+
+<pre><code class="language-bash">yum install dhcp
+</code></pre>
+
+<p>配置dhcp</p>
+
+<pre><code class="language-bash">vim /etc/dhcp/dhcpd.conf
+</code></pre>
+
+<p>当前服务器上的dhcp配置文件，可供参考</p>
+
+<pre><code>ddns-update-style interim;
+ignore client-updates;
+
+subnet 192.168.0.0 netmask 255.255.255.0 {
+
+# --- default gateway
+    option routers          192.168.0.98;
+    option subnet-mask      255.255.255.0;
+
+    option nis-domain       &quot;TS10K&quot;;
+#   option domain-name      &quot;domain.org&quot;;
+    option domain-name-servers  8.8.8.8;
+
+    option time-offset      -18000;
+# Eastern Standard Time
+#   option ntp-servers      192.168.0.1;
+#   option netbios-name-servers 192.168.0.1;
+# --- Selects point-to-point node (default is hybrid). Don&#39;t change this unless
+# -- you understand Netbios very well
+#   option netbios-node-type 2;
+
+    range dynamic-bootp 192.168.0.128 192.168.0.254;
+    default-lease-time 21600;
+    max-lease-time 43200;
+
+####### network installation configuration
+    allow booting;
+    allow bootp;
+    class &quot;pxeclients&quot; {
+    match if substring(option vendor-class-identifier, 0, 9) = &quot;PXEClient&quot;;
+            next-server 192.168.0.100;
+            filename &quot;pxelinux.0&quot;;
+    }
+####### network installation configuration
+
+
+
+    # we want the nameserver to appear at a fixed address
+}
+</code></pre>
+
+<h2 id="toc_1">服务器转发流量</h2>
+
+<p>服务器将互联网的数据包转发到局域网，将局域网的包发出去</p>
+
+<p>开启ipv4数据包转发</p>
+
+<pre><code class="language-bash">在 /etc/sysctl.conf 里 取消注释下面这行
+net.ipv4.ip_forward=1
+</code></pre>
+
+<p>使新配置生效</p>
+
+<pre><code class="language-bash">sysctl -p
+</code></pre>
+
+<p>允许局域网节点访问外网，参考<a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/4/html/Security_Guide/s1-firewall-ipt-fwd.html">这个</a></p>
+
+<pre><code class="language-bash">iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE 
+</code></pre>
+
+<p>然后还需要配置防火墙规则，这个记不得了....</p>
+
+<p>出于安全性考虑，就不贴上现在的ip table配置了</p>
+
+<h2 id="toc_2">参考</h2>
+
+<p><a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/s1-dhcp-configuring-server.html">Configuring a DHCP Server</a><br/>
+<a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/4/html/Security_Guide/s1-firewall-ipt-fwd.html">FORWARD and NAT Rules</a><br/>
+<a href="https://help.ubuntu.com/lts/serverguide/firewall.html">防火墙</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[APUE笔记——信号]]></title>
+    <link href="zhuangqh.cn/14879915333947.html"/>
+    <updated>2017-02-25T10:58:53+08:00</updated>
+    <id>zhuangqh.cn/14879915333947.html</id>
+    <content type="html"><![CDATA[
+<p>信号是软件中断</p>
+
+<h2 id="toc_0">信号概念</h2>
+
+<p>信号定义在 <signal.h> 头文件中，信号名都被定义为正整数常量。不存在编号为0的信号，kill函数对信号编号0有特殊的应用</p>
+
+<h2 id="toc_1">信号产生的条件</h2>
+
+<ol>
+<li>当用户按某些终端键时，引发终端产生的信号。比如 Ctrl+C，产生中断 SIGINT</li>
+<li>硬件异常产生信号，通知内核。如除数为0、无效的内存引用</li>
+<li>进程调用 kill(2) 函数可将任意信号发送给另一个进程或进程组。接收信号的进程和发送信号的进程的所有者必须相同。或者发送方是超级用户</li>
+<li>用户可用 kill(1) 命令将信号发送给其他进程</li>
+<li>当某种软件条件发生时，将其通知有关进程。如 SIGPIPE（管道的读进程终止后，一个进程写此管道）</li>
+</ol>
+
+<h2 id="toc_2">处理信号的方式</h2>
+
+<ol>
+<li>忽略此信号。大部分信号都可忽略。SIGKILL 和 SIGSTOP 不可忽略</li>
+<li>捕捉信号，执行指定函数</li>
+<li>执行系统默认动作。大多数信号的系统默认动作是终止进程</li>
+</ol>
+
+<p><img src="media/14771510550741/Snip20161026_5.png" alt="UNIX 系统信号"/></p>
+
+<p>“终止+core”表示在进程当前工作目录的core文件中复制了该进程的内存镜像。大多数 UNIX 系统调试程序都使用 core 文件检查进程终止时的状态。</p>
+
+<p><strong>下列条件下不产生 core 文件</strong></p>
+
+<ol>
+<li>进程是设置用户 ID 的，而且当前用户并非程序文件的所有者</li>
+<li>进程是设置组 ID 的，而且当前用户并非该程序文件的所有者</li>
+<li>用户没有写当前工作目录的权限</li>
+<li>文件已存在，而且当前用户对该文件没有写权限</li>
+<li>文件太大</li>
+</ol>
+
+<h2 id="toc_3">信号的详细说明</h2>
+
+<p>这里只记录几个我觉得比较熟悉的 ：）</p>
+
+<p><strong>SIGABRT</strong></p>
+
+<p>调用 abort 函数时产生此信号。进程异常终止</p>
+
+<p><strong>SIGALRM</strong></p>
+
+<p>当用 alarm 函数设置的定时器超时时，产生该信号。当 setitimer(2) 函数设置的间隔时间已经超时时，也产生此信号</p>
+
+<p><strong>SIGFPE</strong></p>
+
+<p>此信号表示一个算数运算异常，如除以0、浮点溢出等</p>
+
+<p><strong>SIGINT</strong></p>
+
+<p>当用户按中断键（Ctrl+C）时</p>
+
+<p><strong>SIGKILL</strong></p>
+
+<p>无法忽略的信号。是系统管理员杀死任意进程的可靠方法</p>
+
+<p><strong>SIGQUIT</strong></p>
+
+<p>当用户在终端上按退出键（Ctrl+\）时，中断驱动程序产生该信号，并发送给前台进程组中的所有进程。此信号不仅终止前台进程组，同时产生一个 core 文件</p>
+
+<h2 id="toc_4">函数 signal</h2>
+
+<pre><code class="language-c++">#include &lt;signal.h&gt;
+void (*signal(int signo, void (*func)(int)))(int);
+</code></pre>
+
+<p>signo是信号名。func 的值是常量 SIG_IGN（忽略）、SIG_DFL（默认）或者接收到该信号后要调用的函数的地址</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[APUE笔记——进程控制]]></title>
+    <link href="zhuangqh.cn/14770679937089.html"/>
+    <updated>2016-10-22T00:39:53+08:00</updated>
+    <id>zhuangqh.cn/14770679937089.html</id>
+    <content type="html"><![CDATA[
+<p>main 函数由一个特殊例程（往往是用汇编写的）来调用</p>
+
+<pre><code class="language-c++">exit(main(argc, argv))
+</code></pre>
+
+<p>进程终止的8种方式</p>
+
+<ol>
+<li>从 main 返回</li>
+<li>调用 exit（会在退出前做一些IO库的清理操作）</li>
+<li>调用 _exit 或 _Exit（直接进入内核）</li>
+<li>最后一个线程从器启动例程返回</li>
+<li>从最后一个线程调用 pthread_exit</li>
+</ol>
+
+<p>异常 3 种</p>
+
+<ol>
+<li>调用 abort</li>
+<li>接收到一个信号</li>
+<li>最后一个线程对取消请求作出相应</li>
+</ol>
+
+<p><img src="media/14770679937089/Snip20161022_2.png" alt="Snip20161022_2"/></p>
+
+<h2 id="toc_0">atexit</h2>
+
+<p>一个进程最多能登记32个函数，这些函数由 exit 自动调用。</p>
+
+<pre><code class="language-c">#include &lt;stdlib&gt;
+int atexit(void (*func)(void*));
+成功返回0，出错返回非0
+</code></pre>
+
+<h2 id="toc_1">环境表</h2>
+
+<pre><code class="language-c">extern char **environ;
+</code></pre>
+
+<p>环境为A=B形式，如 HOME=/Users/hh</p>
+
+<p><strong>关于环境变量的操作</strong></p>
+
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+char *getenv(const char *name);
+int putenv(char *str);
+若成功返回0，否则非0
+int setenv(const char *name, const char *value, int rewrite);
+int unsetenv(const char *name);
+若成功返回0，否则-1
+</code></pre>
+
+<ul>
+<li>unsetenv, 不存在该环境变量定义也不报错</li>
+</ul>
+
+<h2 id="toc_2">c语言程序的存储空间布局</h2>
+
+<p><img src="media/14770679937089/14770690380341.jpg" alt=""/></p>
+
+<h2 id="toc_3">存储空间分配</h2>
+
+<ol>
+<li>malloc 分配指定字节数的存储区</li>
+<li>calloc 分配指定字节数的存储区，并且该空间中的每一位都为0</li>
+<li>realloc 增加或减少原分配区域的大小</li>
+</ol>
+
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+void *malloc(size_t size);
+void *calloc(size_t nobj, size_t size);
+void *realloc(void *ptr, size_t newsize);
+</code></pre>
+
+<h2 id="toc_4">进程资源控制</h2>
+
+<pre><code class="language-c">#include &lt;sys/resource.h&gt;
+int getrlimit(int resource, struct rlimit *rlptr);
+int setrlimit(int resource, const struct rlimit *rlptr);
+</code></pre>
+
+<p><strong>规则</strong><br/>
+1. 任何一个进程都可将一个软限制值更改为小于等于其影限制值。<br/>
+2. 任何一个进程都可降低其硬限制值，但它必须大于或等于其软限制值。这种降低，对普通用户而言是不可逆的。<br/>
+3. 只有超级用户进程可以提高硬限制值。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[常用软件]]></title>
+    <link href="zhuangqh.cn/14880043090064.html"/>
+    <updated>2017-02-25T14:31:49+08:00</updated>
+    <id>zhuangqh.cn/14880043090064.html</id>
+    <content type="html"><![CDATA[
+<p>转到OSX平台上来也有一段时间，我个人是个工具党。所谓工欲善其事必先利其器，一是加快开发的效率，一是充分发挥OSX平台的优势。</p>
+
+<h2 id="toc_0">辅助</h2>
+
+<p><strong>Snip, SnappyApp</strong></p>
+
+<p>这两个都是截图工具。那为什么要两个呢？</p>
+
+<p>snip是腾讯出的，相当于是把QQ的截图工具单独剥离出来了。特点是可以截取滚动区域；截取屏幕之后可以调整窗口大小、做一些修改；能指定截图存放目录。</p>
+
+<p>snappyApp这个工具，在截取屏幕后是不能再调整窗口大小的。但是截取的区域会在屏幕上置顶，在所有虚拟左面上都有一份拷贝，非常方便在写代码的时候截取一块屏幕做参考。</p>
+
+<p><strong>Irvue</strong></p>
+
+<p>壁纸工具。会周期性更新壁纸。用的都是unsplash上的高质量壁纸。</p>
+
+<p><strong>Transmit</strong></p>
+
+<p>在限免的时候入的。主要用来连FTP。在windows上 filezilla 非常好用，但是到了OSX下，经常性的无法连接，于是就用这个了。</p>
+
+<p><strong>f.lux</strong></p>
+
+<p>可根据日出日落时间调整屏幕色温，对我这种离不开电脑的人是护眼神器。</p>
+
+<p><strong>MWeb</strong></p>
+
+<p>5折的时候入的。也就是我现在用的写博客的工具，非常方便。几乎有所有MD编辑器的功能。</p>
+
+<h2 id="toc_1">开发</h2>
+
+<p><strong>SourceTree</strong></p>
+
+<p>Git的一个图形化工具。用过类似Github desktop、Tower等，依旧觉得source tree最好用。</p>
+
+<p><strong>Paw</strong></p>
+
+<p>实用的HTTP/REST服务测试工具。相比postman，这个的设计更符合OSX的规范。</p>
+
+<p><strong>Robomongo, Sequel Pro</strong></p>
+
+<p>数据库的图形化工具</p>
+
+<p><strong>VScode</strong></p>
+
+<p>编辑器后起之秀，除了启动速度慢些，已经完全超越sublime。插件系统很丰富。微软果然强啊。</p>
+
+<p><strong>JetBrains IDE</strong></p>
+
+<p>用中大邮箱注册有教育优惠。</p>
+
+<p>支持VIM/EMACS键位，这个是最骚的。我原以为EMACS是写cpp最好的编辑器，直到我见到了Clion。</p>
+
+<p><strong>iTerm2</strong></p>
+
+<p>一个终端。可以配置主题啥的，相比自带的终端有很多增强，快捷键很多。配合zsh+autojump，真的强。</p>
+
+]]></content>
+  </entry>
+  
+</feed>

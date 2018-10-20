@@ -1,0 +1,474 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  基于C++可变参数模板格式化字符串 - zhuangqh的博客
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="zhuangqh的博客" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:zhuangqh.cn ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; zhuangqh的博客</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        
+        <li><a target="self" href="index.html">Home</a></li>
+        
+        <li><a target="_self" href="archives.html">Archives</a></li>
+        
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="APUE.html">APUE</a></li>
+        
+            <li><a href="cluster-manage.html">集群管理</a></li>
+        
+            <li><a href="editor.html">VIM/EMACS</a></li>
+        
+            <li><a href="ml.html">机器学习</a></li>
+        
+            <li><a href="C++.html">C/C++</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>基于C++可变参数模板格式化字符串</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2017/9/2</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='C++.html'>C/C++</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p>遨游于C++世界时，最讨厌的当属于对c-style的兼容🙄。</p>
+
+<p>在格式化字符串时，通常使用的是<code>snprintf</code>这个c函数。<code>snprintf</code>是<code>sprintf</code>的安全版，能够避免缓冲区溢出。</p>
+
+<pre><code class="language-c++">char buf[1024] = {0};
+std::string s = &quot;Hello world&quot;;
+snprintf(buf, sizeof(buf), &quot;format str: %s&quot;, s.c_str());
+</code></pre>
+
+<p><code>snprintf</code>接受的参数跟<code>printf</code>差不多，都是c-style的数据类型，如<code>%s</code>接受的是<code>const char*</code>类型的数据，这就需要我们将<code>std::string</code>做一个转换。这一个小小的转换让我觉得非常不爽，有没有可能让<code>std::string</code>在做某个函数的参数时能自动做转换？甚至让一个将一个普通的对象自动转换成<code>const char*</code>类型？</p>
+
+<p>接下来我们将利用c++11的可变参数模板（variadic templates）、参数包（parameters pack）、完美转发（perfect forwarding）等特性来实现这一想法。</p>
+
+<h2 id="toc_0">参数列表完美转发</h2>
+
+<p>写C++代码时，我满脑子都是怎么最大限度地提高性能。我们这次的目标也一样，在提供方便的同时，不要对性能有太大影响，甚至不影响。</p>
+
+<p>首先是要将传入<code>fmt</code>函数的参数完美转发至<code>snprintf</code>。</p>
+
+<pre><code class="language-c++">template&lt;typename... Args&gt;
+string fmt(const char *format, Args&amp;&amp;... args) {
+  char buf[128] = {0};
+  snprintf(buf, sizeof(buf), format, convert(std::forward&lt;Args&gt;(args))...);
+  return buf;
+}
+</code></pre>
+
+<p>这是一个可变参数模板，args表示传入的参数们。我们的思路是将传入的参数做一个转换之后传给<code>snprintf</code>。</p>
+
+<p>为了原封不动的保持左右值引用，首先是用<code>Args&amp;&amp;</code>代替<code>Args</code>的参数类型，此处模板函数的Args需要编译器推导，所以是一个通用引用（Universal reference），可以指代左值或右值。用<code>std::forward&lt;Args&gt;</code>能保持参数的左右值性质，做到参数的完美转发。</p>
+
+<h2 id="toc_1">自动参数转换</h2>
+
+<p>在<code>convert</code>这个函数中，我们要将特定的类型转换成<code>const char*</code>类型，而那些能被<code>snprintf</code>接受的类型如<code>int</code>, <code>double</code>, <code>char*</code>，则原封不动的返回。</p>
+
+<p><code>convert</code>函数针对不同的参数类型需要返回不同的类型。这里也将返回值作为一个模板类型即可。</p>
+
+<pre><code class="language-c++">template&lt;typename T&gt;
+struct item_return {
+  using type = T&amp;&amp;;
+};
+</code></pre>
+
+<p><code>convert</code>函数的定义为：</p>
+
+<pre><code class="language-c++">template&lt;typename T&gt;
+inline typename item_return&lt;T&gt;::type convert(T&amp;&amp; arg) {
+  return static_cast&lt;T&amp;&amp;&gt;(arg);
+}
+</code></pre>
+
+<p>convert函数默认将传入的参数原封不动的返回。接下来我们要做模板的偏特化，对于指定的对象，将其转换为const char *类型</p>
+
+<pre><code class="language-c++">// lvalue
+template&lt;&gt;
+struct item_return&lt;obj&amp;&gt; {
+  using type = const char*;
+};
+
+template&lt;&gt;
+inline typename item_return&lt;obj&amp;&gt;::type convert&lt;obj&amp;&gt;(obj &amp;arg) {
+  std::cout &lt;&lt; &quot;receive lvalue\n&quot;;
+  return arg.s.c_str();
+}
+
+// rvalue
+template&lt;&gt;
+struct item_return&lt;obj&gt; {
+  using type = const char*;
+};
+
+template&lt;&gt;
+inline typename item_return&lt;obj&gt;::type convert&lt;obj&gt;(obj &amp;&amp;arg) {
+  std::cout &lt;&lt; &quot;receive rvalue\n&quot;;
+  return arg.s.c_str();
+}
+</code></pre>
+
+<p>注意，返回值也是需要偏特化的。</p>
+
+<h2 id="toc_2">最后</h2>
+
+<p>我构造了一个class，hook他的两个构造函数以便于观察是否发生了拷贝。</p>
+
+<pre><code class="language-c++">class obj {
+public:
+  string s;
+  obj(const char * ss) {
+    s = ss;
+  }
+  obj(const obj&amp; other):s(other.s) {
+    printf(&quot;copy constructor\n&quot;);
+  }
+  obj(obj&amp;&amp; other):s(other.s) {
+    printf(&quot;move constructor\n&quot;);
+    other.s.clear();
+  }
+};
+
+</code></pre>
+
+<p>之后我们使用fmt函数，就能像格式化c-style字符串一样，格式化任意一个对象啦。</p>
+
+<pre><code class="language-c++">int main() {
+  obj a(&quot;haha&quot;);
+  int b = 3;
+  std::cout &lt;&lt; fmt(&quot;%s %s\n%d %d&quot;, a, obj(&quot;xixi&quot;), b, 2) &lt;&lt; std::endl;
+  return 0;
+}
+</code></pre>
+
+<p>运行结果为</p>
+
+<pre><code class="language-bash">receive lvalue
+receive rvalue
+haha xixi
+3 2
+</code></pre>
+
+<p>很好，并没有发生拷贝。</p>
+
+<h2 id="toc_3">参考资料</h2>
+
+<ul>
+<li><a href="https://www.sczyh30.com/posts/C-C/cpp-move-semantic/">Modern C++ | 移动语义与完美转发 | Universal Reference</a></li>
+<li><a href="https://www.cnblogs.com/qicosmos/p/4325949.html">泛化之美--C++11可变模版参数的妙用</a></li>
+<li><a href="https://codinfox.github.io/dev/2014/06/03/move-semantic-perfect-forward/">移动语义（move semantic）和完美转发（perfect forward）</a></li>
+<li>《C++ Primer》</li>
+</ul>
+
+
+    
+      <div id="license">
+        </a>本文由<a href="https://github.com/zhuangqh">zhuangqh</a>创作<br>采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享署名-非商业-相同方式分享 4.0 国际许可协议</a> 进行许可。
+      </div>
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="ml-roadmap.html" 
+          title="Previous Post: 机器学习road map">&laquo; 机器学习road map</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="vim-custom-highlight.html" 
+          title="Next Post: VIM——自定义语法高亮">VIM——自定义语法高亮 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = zhuangqh; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://zhuangqh.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>    
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <div class="site-a-logo"><img src="https://avatars2.githubusercontent.com/u/12205760?v=3&s=460" /></div>
+            
+                <h1>zhuangqh的博客</h1>
+                <div class="site-des"></div>
+                <div class="social">
+
+
+
+
+
+
+
+
+<a target="_blank" class="zhihu" href="https://www.zhihu.com/people/zhuang-qing-hui-18/activities" title="zhihu">Zhihu</a>
+
+<a target="_blank" class="github" target="_blank" href="https://github.com/zhuangqh" title="GitHub">GitHub</a>
+<a target="_blank" class="email" href="mailto:zhuangqhc@gmail.com" title="Email">Email</a>
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="APUE.html"><strong>APUE</strong></a>
+        
+            <a href="cluster-manage.html"><strong>集群管理</strong></a>
+        
+            <a href="editor.html"><strong>VIM/EMACS</strong></a>
+        
+            <a href="ml.html"><strong>机器学习</strong></a>
+        
+            <a href="C++.html"><strong>C/C++</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15266964810231.html">深度学习入门</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="ml-roadmap.html">机器学习road map</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="cpp-custom-format.html">基于C++可变参数模板格式化字符串</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="vim-custom-highlight.html">VIM——自定义语法高亮</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="parallel-lr.html">逻辑回归并行化</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+  </body>
+</html>

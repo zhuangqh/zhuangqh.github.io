@@ -1,0 +1,430 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  APUE笔记——进程控制 - zhuangqh的博客
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="zhuangqh的博客" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:zhuangqh.cn ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; zhuangqh的博客</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        
+        <li><a target="self" href="index.html">Home</a></li>
+        
+        <li><a target="_self" href="archives.html">Archives</a></li>
+        
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="APUE.html">APUE</a></li>
+        
+            <li><a href="cluster-manage.html">集群管理</a></li>
+        
+            <li><a href="editor.html">VIM/EMACS</a></li>
+        
+            <li><a href="ml.html">机器学习</a></li>
+        
+            <li><a href="C++.html">C/C++</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>APUE笔记——进程控制</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2016/10/22</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='APUE.html'>APUE</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p>main 函数由一个特殊例程（往往是用汇编写的）来调用</p>
+
+<pre><code class="language-c++">exit(main(argc, argv))
+</code></pre>
+
+<p>进程终止的8种方式</p>
+
+<ol>
+<li>从 main 返回</li>
+<li>调用 exit（会在退出前做一些IO库的清理操作）</li>
+<li>调用 _exit 或 _Exit（直接进入内核）</li>
+<li>最后一个线程从器启动例程返回</li>
+<li>从最后一个线程调用 pthread_exit</li>
+</ol>
+
+<p>异常 3 种</p>
+
+<ol>
+<li>调用 abort</li>
+<li>接收到一个信号</li>
+<li>最后一个线程对取消请求作出相应</li>
+</ol>
+
+<p><img src="media/14770679937089/Snip20161022_2.png" alt="Snip20161022_2"/></p>
+
+<h2 id="toc_0">atexit</h2>
+
+<p>一个进程最多能登记32个函数，这些函数由 exit 自动调用。</p>
+
+<pre><code class="language-c">#include &lt;stdlib&gt;
+int atexit(void (*func)(void*));
+成功返回0，出错返回非0
+</code></pre>
+
+<h2 id="toc_1">环境表</h2>
+
+<pre><code class="language-c">extern char **environ;
+</code></pre>
+
+<p>环境为A=B形式，如 HOME=/Users/hh</p>
+
+<p><strong>关于环境变量的操作</strong></p>
+
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+char *getenv(const char *name);
+int putenv(char *str);
+若成功返回0，否则非0
+int setenv(const char *name, const char *value, int rewrite);
+int unsetenv(const char *name);
+若成功返回0，否则-1
+</code></pre>
+
+<ul>
+<li>unsetenv, 不存在该环境变量定义也不报错</li>
+</ul>
+
+<h2 id="toc_2">c语言程序的存储空间布局</h2>
+
+<p><img src="media/14770679937089/14770690380341.jpg" alt=""/></p>
+
+<h2 id="toc_3">存储空间分配</h2>
+
+<ol>
+<li>malloc 分配指定字节数的存储区</li>
+<li>calloc 分配指定字节数的存储区，并且该空间中的每一位都为0</li>
+<li>realloc 增加或减少原分配区域的大小</li>
+</ol>
+
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+void *malloc(size_t size);
+void *calloc(size_t nobj, size_t size);
+void *realloc(void *ptr, size_t newsize);
+</code></pre>
+
+<h2 id="toc_4">进程资源控制</h2>
+
+<pre><code class="language-c">#include &lt;sys/resource.h&gt;
+int getrlimit(int resource, struct rlimit *rlptr);
+int setrlimit(int resource, const struct rlimit *rlptr);
+</code></pre>
+
+<p><strong>规则</strong><br/>
+1. 任何一个进程都可将一个软限制值更改为小于等于其影限制值。<br/>
+2. 任何一个进程都可降低其硬限制值，但它必须大于或等于其软限制值。这种降低，对普通用户而言是不可逆的。<br/>
+3. 只有超级用户进程可以提高硬限制值。</p>
+
+
+    
+      <div id="license">
+        </a>本文由<a href="https://github.com/zhuangqh">zhuangqh</a>创作<br>采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享署名-非商业-相同方式分享 4.0 国际许可协议</a> 进行许可。
+      </div>
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14879915333947.html" 
+          title="Previous Post: APUE笔记——信号">&laquo; APUE笔记——信号</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14880043090064.html" 
+          title="Next Post: 常用软件">常用软件 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = zhuangqh; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://zhuangqh.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>    
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <div class="site-a-logo"><img src="https://avatars2.githubusercontent.com/u/12205760?v=3&s=460" /></div>
+            
+                <h1>zhuangqh的博客</h1>
+                <div class="site-des"></div>
+                <div class="social">
+
+
+
+
+
+
+
+
+<a target="_blank" class="zhihu" href="https://www.zhihu.com/people/zhuang-qing-hui-18/activities" title="zhihu">Zhihu</a>
+
+<a target="_blank" class="github" target="_blank" href="https://github.com/zhuangqh" title="GitHub">GitHub</a>
+<a target="_blank" class="email" href="mailto:zhuangqhc@gmail.com" title="Email">Email</a>
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="APUE.html"><strong>APUE</strong></a>
+        
+            <a href="cluster-manage.html"><strong>集群管理</strong></a>
+        
+            <a href="editor.html"><strong>VIM/EMACS</strong></a>
+        
+            <a href="ml.html"><strong>机器学习</strong></a>
+        
+            <a href="C++.html"><strong>C/C++</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15266964810231.html">深度学习入门</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="ml-roadmap.html">机器学习road map</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="cpp-custom-format.html">基于C++可变参数模板格式化字符串</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="vim-custom-highlight.html">VIM——自定义语法高亮</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="parallel-lr.html">逻辑回归并行化</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+  </body>
+</html>

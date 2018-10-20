@@ -1,0 +1,432 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  机器学习road map - zhuangqh的博客
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="zhuangqh的博客" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:zhuangqh.cn ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; zhuangqh的博客</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        
+        <li><a target="self" href="index.html">Home</a></li>
+        
+        <li><a target="_self" href="archives.html">Archives</a></li>
+        
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="APUE.html">APUE</a></li>
+        
+            <li><a href="cluster-manage.html">集群管理</a></li>
+        
+            <li><a href="editor.html">VIM/EMACS</a></li>
+        
+            <li><a href="ml.html">机器学习</a></li>
+        
+            <li><a href="C++.html">C/C++</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>机器学习road map</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2017/10/15</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='ml.html'>机器学习</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <h2 id="toc_0">基础算法</h2>
+
+<h3 id="toc_1">常用软件包</h3>
+
+<ul>
+<li>anaconda 一个包管理工具，自带科学计算工具全家桶</li>
+<li>numpy 科学计算包</li>
+<li>scikit-learn 机器学习工具包，大部分机器学习的算法都有实现</li>
+<li>XGBoost/LightGBM Gradient Boosting算法的工业级框架</li>
+</ul>
+
+<h3 id="toc_2">常见术语</h3>
+
+<ul>
+<li>Train Data 训练数据</li>
+<li>Test Data 测试数据</li>
+<li>Train Set 训练集</li>
+<li>Valid Set 验证集</li>
+<li>Cost Function 代价函数</li>
+<li>Learning Rate, Step, Epoch</li>
+<li>Early Stopping</li>
+<li>Overfitting, Underfitting 过拟合、欠拟合</li>
+<li>Regularization 正则化</li>
+<li>Ensemble learning(bagging, boosting) 集成学习</li>
+<li>Learning optimizer</li>
+</ul>
+
+<h3 id="toc_3">两个路线</h3>
+
+<h4 id="toc_4">学术上</h4>
+
+<p>学习以下基础算法</p>
+
+<ul>
+<li>线性回归</li>
+<li>逻辑回归</li>
+<li>决策树算法及衍生的GBDT算法和随机森林算法</li>
+<li>k-NN</li>
+<li>SVM</li>
+</ul>
+
+<p>书籍：《机器学习实战》《机器学习—周志华》《凸优化》，从前往后数学性越来越浓。<br/>
+公开课：Andrew ng《机器学习》教程</p>
+
+<h4 id="toc_5">工程上</h4>
+
+<h5 id="toc_6">提升算法运行效率</h5>
+
+<p><a href="http://blog.csdn.net/pakko/article/details/37878837/">逻辑回归向量化</a><br/>
+GDBT并行化<br/>
+随机森林并行化</p>
+
+<h5 id="toc_7">可视化</h5>
+
+<p>方面观察训练结果、参数的收敛情况等信息，一般框架会集成。</p>
+
+<h5 id="toc_8">参加Kaggle比赛</h5>
+
+<p>Kaggle是一个数据科学竞赛平台，企业或组织提供奖金来征集解决方案。Kaggle提供了一个介于“完美”与真实之间的过渡环境，问题的定义基本良好，非常适合用来实战练手。<br/>
+推荐经典的<a href="https://www.kaggle.com/c/digit-recognizer">手写数字识别问题</a>，适合初学者实战</p>
+
+<h2 id="toc_9">深度学习</h2>
+
+<h3 id="toc_10">常用工具</h3>
+
+<ul>
+<li>tensorflow, tensorboard</li>
+<li>caffe</li>
+</ul>
+
+<h3 id="toc_11">常见术语</h3>
+
+<ul>
+<li>Activation Function 激活函数 Relu, tanh, sigmoid</li>
+<li>Full Connected 全连接</li>
+<li>Backpropagation 反向传播</li>
+<li>正则化 L1, L2, Dropout</li>
+<li>学习率算法</li>
+<li>CNN卷积神经网络</li>
+<li>RNN循环神经网络</li>
+</ul>
+
+<h3 id="toc_12">学习资料</h3>
+
+<p><a href="http://www.deeplearningbook.org">《深度学习》</a></p>
+
+<p><a href="https://www.youtube.com/playlist?list=PLJV_el3uVTsPy9oCRY30oBPNLCo89yu49">台大李宏毅教授视频</a></p>
+
+
+    
+      <div id="license">
+        </a>本文由<a href="https://github.com/zhuangqh">zhuangqh</a>创作<br>采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享署名-非商业-相同方式分享 4.0 国际许可协议</a> 进行许可。
+      </div>
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="15266964810231.html" 
+          title="Previous Post: 深度学习入门">&laquo; 深度学习入门</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="cpp-custom-format.html" 
+          title="Next Post: 基于C++可变参数模板格式化字符串">基于C++可变参数模板格式化字符串 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = zhuangqh; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://zhuangqh.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>    
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <div class="site-a-logo"><img src="https://avatars2.githubusercontent.com/u/12205760?v=3&s=460" /></div>
+            
+                <h1>zhuangqh的博客</h1>
+                <div class="site-des"></div>
+                <div class="social">
+
+
+
+
+
+
+
+
+<a target="_blank" class="zhihu" href="https://www.zhihu.com/people/zhuang-qing-hui-18/activities" title="zhihu">Zhihu</a>
+
+<a target="_blank" class="github" target="_blank" href="https://github.com/zhuangqh" title="GitHub">GitHub</a>
+<a target="_blank" class="email" href="mailto:zhuangqhc@gmail.com" title="Email">Email</a>
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="APUE.html"><strong>APUE</strong></a>
+        
+            <a href="cluster-manage.html"><strong>集群管理</strong></a>
+        
+            <a href="editor.html"><strong>VIM/EMACS</strong></a>
+        
+            <a href="ml.html"><strong>机器学习</strong></a>
+        
+            <a href="C++.html"><strong>C/C++</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15266964810231.html">深度学习入门</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="ml-roadmap.html">机器学习road map</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="cpp-custom-format.html">基于C++可变参数模板格式化字符串</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="vim-custom-highlight.html">VIM——自定义语法高亮</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="parallel-lr.html">逻辑回归并行化</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+  </body>
+</html>
